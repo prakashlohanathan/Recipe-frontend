@@ -3,9 +3,9 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to your actual base URL
 
-
-function Dashboard() {
+function Dashboard({user}) {
     const navigate = useNavigate();
 
     const [recipes, setRecipes] = useState([])
@@ -15,7 +15,7 @@ function Dashboard() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:5000/recipe/getrecipe/${userId}`
+                    `${API_BASE_URL}/recipe/getrecipe/${userId}`
                 );
                 setRecipes(response.data)
                 //console.log(response.data)
@@ -31,11 +31,11 @@ function Dashboard() {
 
         try {
             const res = await axios.delete(
-                `http://localhost:5000/recipe/delete-recipe/${id}`
+                `${API_BASE_URL}/recipe/delete-recipe/${id}`
             );
 
             const response = await axios.get(
-                `http://localhost:5000/recipe/getrecipe/${userId}`
+                `${API_BASE_URL}/recipe/getrecipe/${userId}`
             );
             setRecipes(response.data)
 
@@ -49,7 +49,7 @@ function Dashboard() {
     return (
         <div className="container-dashboard">
             <Navbar />
-            <h2>Welcome</h2>
+            <h2>Welcome {user.username} </h2>
             <div className="home-receipe">
                 {recipes.map((recipe) => (
                     <li key={recipe._id}>

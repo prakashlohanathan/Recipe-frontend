@@ -4,8 +4,9 @@ import Navbar from "../Components/Navbar";
 import './Styles/Home.css'
 import { Alert, Snackbar } from "@mui/material";
 
+const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to your actual base URL
 
-const Home = ({ user, setUser }) => {
+  const Home = ({ user, setUser }) => {
   const [recipes, setRecipes] = useState([]);
   const userId = localStorage.getItem("UserId");
 
@@ -14,7 +15,7 @@ const Home = ({ user, setUser }) => {
     //console.log(userId)
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/recipe");
+        const response = await axios.get(`${API_BASE_URL}/recipe`);
         setRecipes(response.data);
       } catch (err) {
         console.log(err);
@@ -27,7 +28,7 @@ const Home = ({ user, setUser }) => {
 
   const saveRecipe = async (recipeID) => {
     try {
-      const response = await axios.put(`http://localhost:5000/users/update`, {
+      const response = await axios.put(`${API_BASE_URL}/users/update`, {
         recipeID,
         userId,
       });

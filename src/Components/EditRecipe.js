@@ -5,6 +5,10 @@ import './Styles/CreateRecipe.css'
 import Navbar from '../Components/Navbar';
 import axios from "axios";
 
+const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to your actual base URL
+
+
+
 const EditRecipe = ({ user }) => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("UserId");
@@ -17,7 +21,7 @@ const EditRecipe = ({ user }) => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/recipe/recipe-by-id/${id}`
+          `${API_BASE_URL}/recipe/recipe-by-id/${id}`
         );
         //setData(response.data.data[0])  
         setRecipe({
@@ -63,7 +67,7 @@ const EditRecipe = ({ user }) => {
     try {
 
       const response = await axios.put(
-        `http://localhost:5000/recipe/editrecipe`, {
+        `${API_BASE_URL}/recipe/editrecipe`, {
         id, rec: recipe
       }
       );

@@ -48,7 +48,7 @@ function Reset() {
             setTimeout(() => {
                 setLoading(false);
                 alert('Password reset successfully!');
-                navigate('/login', { replace: true });
+                navigate('/', { replace: true });
             }, 1000);
         }
     };

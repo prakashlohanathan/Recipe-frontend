@@ -46,24 +46,27 @@ function Login({ setUser }) {
         } else if (user.message === "not registered") {
           alert('Given Email Id Does not exist');
           setError("Given Email Id Does not exist");
-        } else {
-          alert('Login Successfully');
+          
+        }else {
+          alert('Logined in Successfully');
           localStorage.setItem("loginUserName", user.data.username);
           localStorage.setItem("EmailId", user.data.email);
           localStorage.setItem("UserId", user.data._id);
-
+          
           // Set user details in the state (if a state is available)
           setUser({
             id: user.data._id,
             username: user.data.username,
             email: user.data.email,
           });
+          navigate('/home');
         }
-        navigate('/home');
+        
       } catch (err) {
         console.log(err)
       } finally {
         setLoading(false);
+        
       }
     }
   };

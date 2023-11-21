@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const logout = () => {
     window.localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -17,7 +17,7 @@ const Navbar = () => {
       <Link to='/dash' className="nav-link">Dashboard</Link>
       <Link to='/create-recipe' className="nav-link">Create Recipe</Link>
       <Link to={`/saved-recipe`} className="nav-link">Saved Recipe</Link>
-      <Link to="/" className="nav-link" onClick={() => navigate('/login')}>
+      <Link to="/" className="nav-link" onClick={() => navigate('/')}>
         <button className="logout-button" onClick={logout}> Logout </button>
       </Link>
     </div>

@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://recipebook-be.onrender.com",
   headers: {
     "Content-type": "application/json"
   }
 });
+

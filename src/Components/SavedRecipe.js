@@ -3,6 +3,9 @@ import axios from "axios";
 import Navbar from "../Components/Navbar";
 import './Styles/SavedRecipe.css'
 
+
+const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to your actual base URL
+
 const SavedRecipes = () => {
   const [users, setUsers] = useState(null);
   const [recipe, setRecipe] = useState([]);
@@ -14,8 +17,8 @@ const SavedRecipes = () => {
     const fetchData = async () => {
       try {
         const [userResponse, recipesResponse] = await Promise.all([
-          axios.get(`http://localhost:5000/users/user/${Id}`),
-          axios.get("http://localhost:5000/recipe")
+          axios.get(`${API_BASE_URL}/users/user/${Id}`),
+          axios.get(`${API_BASE_URL}/recipe`)
         ]);
         setUsers(userResponse.data[0]);
         //console.log(userResponse.data[0])

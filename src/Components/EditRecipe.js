@@ -1,26 +1,45 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import apiClient from '../http-common';
 import './Styles/CreateRecipe.css'
 import Navbar from '../Components/Navbar';
+import axios from "axios";
 
-const CreateRecipe = ({user}) => {
-  //console.log(user);
+const EditRecipe = ({user}) => {
+  const navigate=useNavigate();
   const userId =localStorage.getItem("UserId");
-
+const {id}=useParams();
+const [data, setData]= useState([]);
+const [recipe, setRecipe] = useState({})
+useEffect(() => {
+    
+    const fetchData = async () => {
+        
+      try {
+        const response = await axios.get(
+            `http://localhost:5000/recipe/recipe-by-id/${id}`
+          ); 
+           //setData(response.data.data[0])  
+           setRecipe({
+            name: response.data.data[0].name,
+            description:"" ,
+            ingredients: response.data.data[0].ingredients,
+            instructions: response.data.data[0].instructions,
+            imageUrl: response.data.data[0].imageUrl,
+            cookingTime: response.data.data[0].cookingTime,
+            userOwner: response.data.data[0].userId,
+          });
+        
+      } catch (err) {
+        console.log(err);
+      }
+    };
   
-  const [recipe, setRecipe] = useState({
-    name: "",
-    description: "",
-    ingredients: [],
-    instructions: "",
-    imageUrl: "",
-    cookingTime: 0,
-    userOwner: userId,
-  });
-
-  const navigate = useNavigate();
-
+    fetchData();
+    
+    
+  },[]);
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
     setRecipe({ ...recipe, [name]: value });
@@ -32,35 +51,26 @@ const CreateRecipe = ({user}) => {
     ingredients[index] = value;
     setRecipe({ ...recipe, ingredients });
   };
-
-  const handleAddIngredient = () => {
+  
+//console.log(recipe)
+  
+const handleAddIngredient = () => {
     const ingredients = [...recipe.ingredients, ""];
     setRecipe({ ...recipe, ingredients });
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        const postData = {
-          userId: userId,
-           
-        };
         
-        const res = await apiClient.post(`/recipe/${userId}`, recipe,postData, {
-            headers: {
-                "x-access-token": "token-value",
-            },
+        const response = await axios.put(
+            `http://localhost:5000/recipe/editrecipe`,{
+                id,rec:recipe
+            }
+          ); 
+        //console.log(response.data)
             
-        });
-        console.log(res)
-        const user = {
-            status: res.status + "-" + res.statusText,
-            headers: res.headers,
-            data: res.data,
-        };
-    console.log(user);
-      alert("Recipe Created Successfully!!!");
-      navigate("/home");
+      alert("Recipe Edited Successfully!!!");
+      navigate("/dash");
     } catch (error) {
       console.log(error);
 
@@ -70,10 +80,11 @@ const CreateRecipe = ({user}) => {
   return (
     
     <div>
-    <Navbar user={user} />
+    <Navbar />
     <div className="create-recipe">
       <h2>Create Recipe</h2>
       <form className="form-group" onSubmit={handleSubmit}>
+      
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -90,7 +101,7 @@ const CreateRecipe = ({user}) => {
           onChange={handleChange}
         ></input>
         <label htmlFor="ingredients">Ingredients</label>
-        {recipe.ingredients.map((ingredient, index) => (
+        {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
           <input
             key={index}
             type="text"
@@ -100,7 +111,7 @@ const CreateRecipe = ({user}) => {
           />
         ))}
         
-        <button className="add-button" type="button" onClick={handleAddIngredient}>
+        <button className="add-button" type="button" onClick={handleAddIngredient} >
           Add Ingredient
         </button>
         
@@ -129,7 +140,7 @@ const CreateRecipe = ({user}) => {
           onChange={handleChange}
         />
         
-        <button className="add-button" type="submit">Create Recipe</button>
+        <button className="add-button" type="submit">Edit Recipe</button>
         
       </form>
     </div>
@@ -137,4 +148,4 @@ const CreateRecipe = ({user}) => {
   );
 };
 
-export default CreateRecipe;
+export default EditRecipe;

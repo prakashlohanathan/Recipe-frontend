@@ -9,6 +9,8 @@ import ResetPassword from './Pages/ResetPassword';
 import Error from './Pages/Error';
 import CreateRecipe from './Components/CreateRecipe';
 import SavedRecipe from './Components/SavedRecipe';
+import Dashboard from './Components/Dashboard';
+import EditRecipe from './Components/EditRecipe';
 
 function App() {
 
@@ -18,9 +20,11 @@ function App() {
 
   return (
     <div className="App">
-    <Router>
+    
       <Routes>
-        <Route path = "/home" element = {<Home user={user} setUser={setUser}/>} />
+        <Route exact path = "/home" element = {<Home user={user} setUser={setUser}/>} />
+        <Route path = "/dash" element = {<Dashboard user={user} setUser={setUser}/>} />
+        <Route path = "/edit/:id" element = {<EditRecipe user={user} setUser={setUser}/>} />
         <Route path = "/login" element = {<Login setUser={setUser}  />} />
         <Route path = "/register" element = {<Register  />} />
         <Route path = "/forgot-password" element = {<ForgotPassword />} />
@@ -30,7 +34,7 @@ function App() {
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<Navigate to="/error" />} />
       </Routes>
-    </Router>
+    
       
     </div>
   );

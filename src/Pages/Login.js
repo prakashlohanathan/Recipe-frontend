@@ -31,12 +31,12 @@ function Login({ setUser }) {
             "x-access-token": "token-value",
           },
         });
-//console.log(res)
+        //console.log(res)
         const user = {
           status: res.status + "-" + res.statusText,
           headers: res.headers,
           data: res.data.user,
-          message:res.data.message
+          message: res.data.message
         };
         //console.log(user);
 
@@ -51,7 +51,7 @@ function Login({ setUser }) {
           localStorage.setItem("loginUserName", user.data.username);
           localStorage.setItem("EmailId", user.data.email);
           localStorage.setItem("UserId", user.data._id);
-          
+
           // Set user details in the state (if a state is available)
           setUser({
             id: user.data._id,

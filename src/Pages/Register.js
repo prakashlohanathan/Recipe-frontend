@@ -41,12 +41,12 @@ const Register = () => {
                 };
                 console.log(user);
             } catch (err) {
-                //console.error(err);
+                console.error(err);
             }
 
             setTimeout(() => {
                 setLoading(false);
-                navigate('/Login'); // Redirect to login after successful registration
+                navigate('/'); // Redirect to login after successful registration
             }, 1000);
         }
     };

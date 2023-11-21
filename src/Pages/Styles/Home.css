@@ -4,7 +4,13 @@
     max-width: 800px; 
     margin: 0 auto; 
   }
-  
+  .home-receipe {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
   ul {
     list-style: none;
     padding: 0;

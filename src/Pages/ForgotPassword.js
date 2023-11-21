@@ -13,7 +13,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     if (!email) {
-      setError('Email is required'); 
+      setError('Email is required');
     } else {
       const postData = {
         email: email,
@@ -50,7 +50,7 @@ function ForgotPassword() {
         <h2>Forgot Password</h2>
         <form onSubmit={handleForgotPassword} disabled={loading}>
           <div className="form-group">
-            <label htmlFor="email">Email</label> 
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
@@ -62,16 +62,17 @@ function ForgotPassword() {
             />
           </div>
           {error && <p className="text-danger" style={{
-                        color: 'red',
-                        fontSize: '14px'}}>{error}</p>} 
+            color: 'red',
+            fontSize: '14px'
+          }}>{error}</p>}
           <div className="input-feild">
-          <button
-            type="submit"
-            className="btn btn-success w-100 rounded-0"
-            disabled={loading}
-          >
-            Send
-          </button>
+            <button
+              type="submit"
+              className="btn btn-success w-100 rounded-0"
+              disabled={loading}
+            >
+              Send
+            </button>
           </div>
         </form>
       </div>

@@ -3,17 +3,15 @@ import axios from "axios";
 import Navbar from "../Components/Navbar";
 import './Styles/Home.css'
 import { Alert, Snackbar } from "@mui/material";
-//import apiClient from '../http-common';
 
-const Home = ({ user,setUser }) => {
+
+const Home = ({ user, setUser }) => {
   const [recipes, setRecipes] = useState([]);
-  const [savedRecipes, setSavedRecipes] = useState([]);
- const [save,setSave]= useState(false)
   const userId = localStorage.getItem("UserId");
 
   useEffect(() => {
-    
-    console.log(userId)
+
+    //console.log(userId)
     const fetchRecipes = async () => {
       try {
         const response = await axios.get("http://localhost:5000/recipe");
@@ -22,80 +20,41 @@ const Home = ({ user,setUser }) => {
         console.log(err);
       }
     };
-
-    const fetchSavedRecipes = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/recipe/savedRecipe/ids/${userId}`
-        );
-        console.log(response)
-        setSavedRecipes(response.data.savedRecipes);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     fetchRecipes();
     // fetchSavedRecipes();
   }, [userId]);
 
-  // const saveRecipe = async (recipeID) => {
-  //   try {
-  //   //   const postData = {
-  //   //     userId: userId,
-  //   //     recipeID: recipeID
-  //   //   };
 
-  //   //   const res = await apiClient.put(`/recipe`, postData, {
-  //   //     headers: {
-  //   //       "x-access-token": "token-value",
-  //   //     },
-
-  //   //   });
-  //   //   console.log(res)
-  //   //   const user = {
-  //   //     status: res.status + "-" + res.statusText,
-  //   //     headers: res.headers,
-  //   //     data: res.data,
-  //   //   };
-  //   //   console.log(user);
-  //   //   setSavedRecipes(res.data.savedRecipes);
-  //   // } catch (error) {
-  //   //   console.log(error);
-
-  //   }
-  // };
-  
   const saveRecipe = async (recipeID) => {
     try {
       const response = await axios.put(`http://localhost:5000/users/update`, {
         recipeID,
         userId,
       });
+
       handleClick()
-      console.log(response)
+      //console.log(response)
       setUser(response.data.updatedRecipe)
-      setSavedRecipes(response.data.updatedRecipe.savedRecipes);
     } catch (err) {
       console.log(err);
     }
   };
 
-  
-//Snackbar
-const [open, setOpen] = useState(false);
 
-const handleClick = () => {
-  setOpen(true);
-};
+  //Snackbar
+  const [open, setOpen] = useState(false);
 
-const handleClose = (event, reason) => {
-  if (reason === 'clickaway') {
-    return;
-  }
+  const handleClick = () => {
+    setOpen(true);
+  };
 
-  setOpen(false);
-};
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
     <div>
@@ -110,7 +69,7 @@ const handleClose = (event, reason) => {
                 <div className="btn" >
                   <button
                     onClick={() => saveRecipe(recipe._id)}
-                    
+
                   >save </button></div>
               </div>
               <div className="instructions">
@@ -122,13 +81,13 @@ const handleClose = (event, reason) => {
           ))}
         </div>
       </div>
-      <Snackbar open={open} autoHideDuration={4000} 
-            onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success" 
-            sx={{ width: '100%' }}>
-              Recipe added to Favourites
-            </Alert>
-          </Snackbar>
+      <Snackbar open={open} autoHideDuration={4000}
+        onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success"
+          sx={{ width: '100%' }}>
+          Recipe added to Favourites
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

@@ -63,8 +63,9 @@ const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to you
       <div className="home-container">
         <h1>Recipes</h1>
         <div className="home-receipe">
+        <ul className="card-container">
           {recipes.map((recipe) => (
-            <li key={recipe._id}>
+            <li key={recipe._id} className="card">
               <div>
                 <h2>{recipe.name}</h2>
                 <div className="btn" >
@@ -80,6 +81,7 @@ const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to you
               <p>Cooking Time: {recipe.cookingTime} minutes</p>
             </li>
           ))}
+          </ul>
         </div>
       </div>
       <Snackbar open={open} autoHideDuration={4000}

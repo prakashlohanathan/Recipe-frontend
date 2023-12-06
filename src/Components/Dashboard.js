@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import './Styles/Dashboard.css'
 
 const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to your actual base URL
 
@@ -49,10 +50,10 @@ function Dashboard({user}) {
     return (
         <div className="container-dashboard">
             <Navbar />
-            <h2>Welcome {user.username} </h2>
+            <h2>Welcome {user?.username} </h2>
             <div className="home-receipe">
                 {recipes.map((recipe) => (
-                    <li key={recipe._id}>
+                    <li key={recipe._id} className="card">
                         <div>
                             <h2>{recipe.name}</h2>
                             <div className="btn" >
@@ -66,7 +67,7 @@ function Dashboard({user}) {
                         <div className="instructions">
                             <p>{recipe.instructions}</p>
                         </div>
-                        <div class="card" ><img src={recipe.imageUrl} alt={recipe.name} /></div>
+                        <div className="card" ><img src={recipe.imageUrl} alt={recipe.name} /></div>
                         <p>Cooking Time: {recipe.cookingTime} minutes</p>
                     </li>
                 ))}

@@ -88,7 +88,7 @@ const API_BASE_URL = 'https://recipebook-be.onrender.com'; // Change this to you
         onClose={handleClose}>
         <Alert onClose={handleClose} severity="success"
           sx={{ width: '100%' }}>
-          Recipe added to Favourites
+          Recipe added to SavedRecipes
         </Alert>
       </Snackbar>
     </div>

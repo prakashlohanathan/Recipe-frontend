@@ -44,9 +44,9 @@ const SavedRecipes = () => {
       <Navbar />
       <div className="saved-recipe">
         <h1>Saved Recipes</h1>
-        <ul>
+        <ul className="card-container">
           {savedRecipes && savedRecipes.map((recipe) => (
-            <li key={recipe._id} >
+            <li className="card" key={recipe._id} >
               <div>
                 <h2>{recipe.name}</h2>
               </div>

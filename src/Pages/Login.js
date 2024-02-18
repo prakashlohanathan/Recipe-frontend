@@ -38,7 +38,7 @@ function Login({ setUser }) {
           data: res.data.user,
           message: res.data.message
         };
-        //console.log(user);
+        console.log(user);
 
         if (user.message === "Please check the credentials") {
           alert('Please check the credentials');
